@@ -11,6 +11,8 @@ import {
 import Link from "next/link"
 
 export default async function HomePage() {
+
+  // const fullUser = null;
   const fullUser = await getCurrentUser({ withFullUser: true })
 
   return (
