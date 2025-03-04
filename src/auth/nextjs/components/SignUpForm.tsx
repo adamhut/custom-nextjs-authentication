@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import {
   Form,
@@ -7,57 +7,60 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { oAuthSignIn, signUp } from "../actions"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
-import { signUpSchema } from "../schemas"
-import Link from "next/link"
+} from '@/components/ui/form';
+import { oAuthSignIn, signUp } from '../actions';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { signUpSchema } from '../schemas';
+import Link from 'next/link';
 
 export function SignUpForm() {
-  const [error, setError] = useState<string>()
+  const [error, setError] = useState<string>();
+
+  // add redirect to home page if the user has session maybe add it to the middleware
+
   const form = useForm<z.infer<typeof signUpSchema>>({
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: '',
+      email: '',
+      password: '',
     },
-  })
+  });
 
   async function onSubmit(data: z.infer<typeof signUpSchema>) {
-    const error = await signUp(data)
-    setError(error)
+    const error = await signUp(data);
+    setError(error);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {error && <p className="text-destructive">{error}</p>}
-        <div className="flex gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        {error && <p className='text-destructive'>{error}</p>}
+        <div className='flex gap-4'>
           <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("discord")}
+            type='button'
+            onClick={async () => await oAuthSignIn('discord')}
           >
             Discord
           </Button>
           <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("github")}
+            type='button'
+            onClick={async () => await oAuthSignIn('github')}
           >
             GitHub
           </Button>
         </div>
         <FormField
           control={form.control}
-          name="name"
+          name='name'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="text" {...field} />
+                <Input type='text' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -65,12 +68,12 @@ export function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="email"
+          name='email'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" {...field} />
+                <Input type='email' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,24 +81,29 @@ export function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="password"
+          name='password'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" {...field} />
+                <Input type='password' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex gap-4 justify-end">
-          <Button asChild variant="link">
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
-          <Button type="submit">Sign Up</Button>
+        <div className='flex gap-4 justify-end'>
+          <div className='flex items-baseline gap-1'>
+            <span className='text-muted-foreground text-xs '>
+              Already have an account?
+            </span>
+            <Button asChild variant='link'>
+              <Link href='/sign-in'>Sign In</Link>
+            </Button>
+          </div>
+          <Button type='submit'>Sign Up</Button>
         </div>
       </form>
     </Form>
-  )
+  );
 }

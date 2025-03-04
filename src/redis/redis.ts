@@ -7,10 +7,15 @@ export const redisClient = new Redis({
   url: env.REDIS_URL,
   token: env.REDIS_TOKEN,
 })
-
+// export const redisClient = new Redis({
+//   url:  'redis://localhost:6379',
+//   token: '',
+// })
 
 // import Redis from 'ioredis';
-// export const redisClient = new Redis(`rediss://default:${env.REDIS_TOKEN}@current-mongrel-45638.upstash.io:6379`)
+// Use a symbol to ensure the instance is unique
+
+// export const redisClient = new Redis(env.REDIS_HOST || 'redis://localhost:6379')
 // Initialize Redis (using environment variables for connection details)
 // const getRedisConfiguration = () => {
 //   return {

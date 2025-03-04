@@ -94,7 +94,7 @@ function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
 }
 
 async function getUserSessionById(sessionId: string) {
-  console.log('I am here')
+  // console.log('I am here')
   const rawUser = await redisClient.get(`session:${sessionId}`)
 
   const { success, data: user } = sessionSchema.safeParse(rawUser)
